@@ -1,0 +1,26 @@
+# Build output
+backend/build/
+backend/.gradle/
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Database
+backend/data/
+
+# Environment
+.env
+.env.local
