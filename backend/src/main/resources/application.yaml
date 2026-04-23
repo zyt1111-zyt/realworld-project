@@ -1,0 +1,45 @@
+# 服务器配置
+server:
+  port: 8080  # 显式指定端口，避免默认端口占用
+  servlet:
+    context-path: /api  # 接口根路径
+
+# 自定义 JWT 配置
+realworld:
+  auth:
+    token:
+      sign-key: signKey012345678901234567890123456789
+      valid-time: 3000000  # JWT 有效期（毫秒）
+
+# 数据源配置（H2 文件数据库）
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/realworld-db;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE  # 文件数据库，自动创建
+    driver-class-name: org.h2.Driver  # H2 驱动类
+    username: sa  # H2 默认用户名
+    password:  # H2 默认密码（空）
+  h2:
+    console:
+      enabled: true  # 启用 H2 控制台
+      path: /h2-console  # 访问地址：http://localhost:8080/api/h2-console
+      settings:
+        web-allow-others: true  # 允许外部访问（仅测试环境）
+        trace: true
+        dbns: enabled  # 允许远程创建数据库
+  jpa:
+    hibernate:
+      ddl-auto: update  # 启动时自动更新表结构（创建/更新表）
+    show-sql: true  # 打印执行的 SQL 语句
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect  # H2 方言
+        format_sql: true  # 格式化 SQL 输出（便于阅读）
+
+# 日志配置（打印启动细节，定位问题）
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG  # Spring 核心日志（调试级别）
+    org.hibernate: DEBUG       # Hibernate/JPA 日志（调试级别）
+    io.zoooohs: DEBUG          # 替换为你的项目核心包名
+    com.zaxxer.hikari: DEBUG   # 数据库连接池日志（调试级别）
